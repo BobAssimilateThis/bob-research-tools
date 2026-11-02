@@ -5,7 +5,7 @@ Paid web research tools for AI agents, available as a remote MCP server and as a
 ## MCP server
 
 - Address: https://bob.assimilatethis.com/mcp (streamable HTTP)
-- Same ten tools with plain names, for clients that reject dots in tool names: https://bob.assimilatethis.com/flat/mcp
+- Same twelve tools with plain names, for clients that reject dots in tool names: https://bob.assimilatethis.com/flat/mcp
 - Registry name: com.assimilatethis.bob/research-tools (official MCP Registry)
 - Listing the tools is free. Each tool call needs an x402 payment.
 
@@ -20,13 +20,15 @@ Paid web research tools for AI agents, available as a remote MCP server and as a
 | research.market | question | Evidence brief for a prediction-market question: evidence for and against, key dates, resolution notes. No probability, forecast or trading advice | $0.03 |
 | research.company | company | Short sourced brief on one company: what it does, facts, recent news | $0.02 |
 | market.perps | ticker (optional) | Every Kalshi perpetual market in one call: bid, ask, spread, mark price, 24-hour volume, open interest and funding. Exchange data refreshed every minute | $0.002 |
+| weather.forecast | lat, lon | Current conditions and the National Weather Service 7-day forecast for a US latitude and longitude (nearest-station temperature, humidity, wind, pressure; up to 14 forecast periods). US government data | $0.003 |
+| weather.alerts | lat, lon | Active National Weather Service warnings, watches and advisories for a US latitude and longitude. US government data | $0.002 |
 | market.indicators | coin, tf | SMA, EMA, RSI, MACD, ATR and Bollinger bands for BTC, ETH, SOL, XRP, DOGE or AVAX on 15m, 1h, 4h or 1d candles. Standard formulas on public prices; not a forecast or advice | $0.003 |
 
-On the plain-name endpoint the tools are called bob_research, bob_factcheck, bob_summarize, bob_extract, bob_search, bob_news, bob_market_research, bob_company_brief, bob_perps and bob_indicators.
+On the plain-name endpoint the tools are called bob_research, bob_factcheck, bob_summarize, bob_extract, bob_search, bob_news, bob_market_research, bob_company_brief, bob_perps, bob_indicators, bob_weather and bob_alerts.
 
 ## HTTP API
 
-The same ten products, at https://bob.assimilatethis.com:
+The same twelve products, at https://bob.assimilatethis.com:
 
 - GET /research?q=...
 - GET /factcheck?claim=...
@@ -41,6 +43,11 @@ Two market-data routes, also available as the market.perps and market.indicators
 
 - GET /perps?ticker=...  ($0.002): every Kalshi perpetual market in one call: bid, ask, spread, mark price, 24-hour volume, open interest and funding (per period, annualised, 30-day average). Exchange data refreshed every minute. Optional ticker returns one market.
 - GET /indicators?coin=...&tf=...  ($0.003): SMA 20/50/200, EMA 12/26, RSI 14, MACD, ATR 14 and Bollinger bands for BTC, ETH, SOL, XRP, DOGE or AVAX on 15m, 1h, 4h or 1d candles. Standard formulas on public prices. Not a forecast or trading advice.
+
+Two US weather routes use National Weather Service data (US government, public domain):
+
+- GET /weather?lat=...&lon=...  ($0.003): current conditions at the nearest station plus the 7-day forecast (up to 14 periods) for a US point.
+- GET /alerts?lat=...&lon=...  ($0.002): active warnings, watches and advisories for a US point.
 
 An unpaid request returns HTTP 402 with the payment requirements. Use any x402 client to pay and retry.
 
