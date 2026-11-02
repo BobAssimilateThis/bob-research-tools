@@ -35,6 +35,11 @@ The same eight products, at https://bob.assimilatethis.com:
 - GET /market-research?question=...
 - GET /company-brief?company=...
 
+Two market-data routes are web routes only for now (not MCP tools). Each call is paid with x402 like the others, and a call that fails is not charged:
+
+- GET /perps?ticker=...  ($0.002): every Kalshi perpetual market in one call: bid, ask, spread, mark price, 24-hour volume, open interest and funding (per period, annualised, 30-day average). Exchange data refreshed every minute. Optional ticker returns one market.
+- GET /indicators?coin=...&tf=...  ($0.003): SMA 20/50/200, EMA 12/26, RSI 14, MACD, ATR 14 and Bollinger bands for BTC, ETH, SOL, XRP, DOGE or AVAX on 15m, 1h, 4h or 1d candles. Standard formulas on public prices. Not a forecast or trading advice.
+
 An unpaid request returns HTTP 402 with the payment requirements. Use any x402 client to pay and retry.
 
 ## Notes
